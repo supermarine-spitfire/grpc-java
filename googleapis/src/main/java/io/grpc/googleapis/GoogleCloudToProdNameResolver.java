@@ -25,6 +25,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.CharStreams;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import io.grpc.NameResolver;
 import io.grpc.NameResolverRegistry;
 import io.grpc.Status;
@@ -323,7 +325,7 @@ final class GoogleCloudToProdNameResolver extends NameResolver {
 
     @Override
     public HttpURLConnection createConnection(String url) throws IOException {
-      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+      HttpURLConnection con = (HttpURLConnection) Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
       con.setRequestMethod("GET");
       con.setReadTimeout(10000);
       con.setRequestProperty("Metadata-Flavor", "Google");
