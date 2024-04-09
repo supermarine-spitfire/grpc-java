@@ -635,7 +635,7 @@ final class BinlogHelper {
           if (methodOrSvc.isEmpty()) {
             throw new IllegalArgumentException("Illegal log config pattern: " + configuration);
           }
-          if (methodOrSvc.equals("*")) {
+          if ("*".equals(methodOrSvc)) {
             // parse config for "*"
             checkState(
                 globalLog == null,
@@ -801,7 +801,7 @@ final class BinlogHelper {
         builder.setAddress(address.toString());
       }
       builder.setIpPort(((InetSocketAddress) address).getPort());
-    } else if (address.getClass().getName().equals("io.netty.channel.unix.DomainSocketAddress")) {
+    } else if ("io.netty.channel.unix.DomainSocketAddress".equals(address.getClass().getName())) {
       // To avoid a compile time dependency on grpc-netty, we check against the runtime class name.
       builder.setType(Address.Type.TYPE_UNIX)
           .setAddress(address.toString());

@@ -191,13 +191,13 @@ final class SafeMethodCachingInterceptor implements ClientInterceptor {
                 if (cacheResponse && cacheControlHeaders != null) {
                   for (String cacheControlHeader : cacheControlHeaders) {
                     for (String directive : CACHE_CONTROL_SPLITTER.split(cacheControlHeader)) {
-                      if (directive.equalsIgnoreCase("no-cache")) {
+                      if ("no-cache".equalsIgnoreCase(directive)) {
                         cacheResponse = false;
                         break;
-                      } else if (directive.equalsIgnoreCase("no-store")) {
+                      } else if ("no-store".equalsIgnoreCase(directive)) {
                         cacheResponse = false;
                         break;
-                      } else if (directive.equalsIgnoreCase("no-transform")) {
+                      } else if ("no-transform".equalsIgnoreCase(directive)) {
                         cacheResponse = false;
                         break;
                       } else if (directive.toLowerCase(Locale.US).startsWith("max-age")) {

@@ -372,7 +372,7 @@ public final class XdsTestServer {
         }
 
         // hang if instructed by rpc-behavior
-        if (callBehavior.equals(CALL_BEHAVIOR_KEEP_OPEN_VALUE)) {
+        if (CALL_BEHAVIOR_KEEP_OPEN_VALUE.equals(callBehavior)) {
           return noopListener;
         }
 

@@ -422,7 +422,7 @@ public class LogHelper {
         builder.setAddress(address.toString());
       }
       builder.setIpPort(((InetSocketAddress) address).getPort());
-    } else if (address.getClass().getName().equals("io.netty.channel.unix.DomainSocketAddress")) {
+    } else if ("io.netty.channel.unix.DomainSocketAddress".equals(address.getClass().getName())) {
       // To avoid a compiled time dependency on grpc-netty, we check against the
       // runtime class name.
       builder.setType(Address.Type.UNIX)

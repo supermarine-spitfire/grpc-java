@@ -44,7 +44,7 @@ class AuthorizationPolicyTranslator {
       "te", "trailer", "transfer-encoding", "upgrade");
 
   private static StringMatcher getStringMatcher(String value) {
-    if (value.equals("*")) {
+    if ("*".equals(value)) {
       return StringMatcher.newBuilder().setSafeRegex(
         RegexMatcher.newBuilder().setRegex(".+").build()).build();
     } else if (value.startsWith("*")) {

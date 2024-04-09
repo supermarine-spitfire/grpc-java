@@ -736,7 +736,7 @@ public final class Metadata {
     private static String validateName(String n, boolean pseudo) {
       checkNotNull(n, "name");
       checkArgument(!n.isEmpty(), "token must have at least 1 tchar");
-      if (n.equals("connection")) {
+      if ("connection".equals(n)) {
         logger.log(
             Level.WARNING,
             "Metadata key is 'Connection', which should not be used. That is used by HTTP/1 for "

@@ -155,7 +155,7 @@ public final class GrpclbFallbackTestClient {
   }
 
   private ManagedChannel createChannel() {
-    if (!customCredentialsType.equals("compute_engine_channel_creds")) {
+    if (!"compute_engine_channel_creds".equals(customCredentialsType)) {
       throw new AssertionError(
           "This test currently only supports "
           + "--custom_credentials_type=compute_engine_channel_creds. "
@@ -299,9 +299,9 @@ public final class GrpclbFallbackTestClient {
   private void run() throws Exception {
     warmup();
     logger.info("Begin test case: " + testCase);
-    if (testCase.equals("fallback_before_startup")) {
+    if ("fallback_before_startup".equals(testCase)) {
       runFallbackBeforeStartup();
-    } else if (testCase.equals("fallback_after_startup")) {
+    } else if ("fallback_after_startup".equals(testCase)) {
       runFallbackAfterStartup();
     } else {
       throw new RuntimeException("invalid testcase: " + testCase);

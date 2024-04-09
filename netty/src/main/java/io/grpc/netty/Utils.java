@@ -139,7 +139,7 @@ class Utils {
             System.getProperty("io.grpc.netty.useCustomAllocator", "true"))) {
 
       String allocType = System.getProperty("io.netty.allocator.type", "pooled");
-      if (allocType.toLowerCase(Locale.ROOT).equals("unpooled")) {
+      if ("unpooled".equals(allocType.toLowerCase(Locale.ROOT))) {
         logger.log(Level.FINE, "Using unpooled allocator");
         return UnpooledByteBufAllocator.DEFAULT;
       }

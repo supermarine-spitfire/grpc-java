@@ -56,7 +56,7 @@ public final class InternalCheckGcpEnvironment {
   @VisibleForTesting
   static boolean checkProductNameOnLinux(BufferedReader reader) throws IOException {
     String name = reader.readLine().trim();
-    return name.equals("Google") || name.equals("Google Compute Engine");
+    return "Google".equals(name) || "Google Compute Engine".equals(name);
   }
 
   @VisibleForTesting
@@ -65,7 +65,7 @@ public final class InternalCheckGcpEnvironment {
     while ((line = reader.readLine()) != null) {
       if (line.startsWith("Manufacturer")) {
         String name = line.substring(line.indexOf(':') + 1).trim();
-        return name.equals("Google");
+        return "Google".equals(name);
       }
     }
     return false;

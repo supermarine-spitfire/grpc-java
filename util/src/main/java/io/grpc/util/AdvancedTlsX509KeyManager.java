@@ -55,7 +55,7 @@ public final class AdvancedTlsX509KeyManager extends X509ExtendedKeyManager {
 
   @Override
   public PrivateKey getPrivateKey(String alias) {
-    if (alias.equals("default")) {
+    if ("default".equals(alias)) {
       return this.keyInfo.key;
     }
     return null;
@@ -63,7 +63,7 @@ public final class AdvancedTlsX509KeyManager extends X509ExtendedKeyManager {
 
   @Override
   public X509Certificate[] getCertificateChain(String alias) {
-    if (alias.equals("default")) {
+    if ("default".equals(alias)) {
       return Arrays.copyOf(this.keyInfo.certs, this.keyInfo.certs.length);
     }
     return null;

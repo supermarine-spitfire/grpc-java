@@ -89,7 +89,7 @@ public final class XdsFederationTestClient {
       }
       String[] parts = arg.substring(2).split("=", 2);
       String key = parts[0];
-      if (key.equals("help")) {
+      if ("help".equals(key)) {
         usage = true;
         break;
       }

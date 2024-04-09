@@ -588,7 +588,7 @@ final class XdsNameResolver extends NameResolver {
     if (headerName.endsWith(Metadata.BINARY_HEADER_SUFFIX)) {
       return null;
     }
-    if (headerName.equals("content-type")) {
+    if ("content-type".equals(headerName)) {
       return "application/grpc";
     }
     Metadata.Key<String> key;

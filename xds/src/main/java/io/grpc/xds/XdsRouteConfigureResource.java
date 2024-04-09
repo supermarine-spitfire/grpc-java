@@ -201,7 +201,7 @@ class XdsRouteConfigureResource extends XdsResourceType<RdsUpdate> {
       Any anyConfig = rawFilterConfigMap.get(name);
       String typeUrl = anyConfig.getTypeUrl();
       boolean isOptional = false;
-      if (typeUrl.equals(TYPE_URL_FILTER_CONFIG)) {
+      if (TYPE_URL_FILTER_CONFIG.equals(typeUrl)) {
         io.envoyproxy.envoy.config.route.v3.FilterConfig filterConfig;
         try {
           filterConfig =
