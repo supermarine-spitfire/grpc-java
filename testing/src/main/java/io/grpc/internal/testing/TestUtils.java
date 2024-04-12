@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.security.KeyStore;
 import java.security.Provider;
 import java.security.Security;
@@ -102,7 +103,7 @@ public class TestUtils {
    */
   public static File loadCert(String name) throws IOException {
     InputStream in = new BufferedInputStream(TlsTesting.loadCert(name));
-    File tmpFile = File.createTempFile(name, "");
+    File tmpFile = Files.createTempFile(name, "").toFile();
     tmpFile.deleteOnExit();
 
     OutputStream os = new BufferedOutputStream(new FileOutputStream(tmpFile));
