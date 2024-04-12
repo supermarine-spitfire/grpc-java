@@ -16,6 +16,7 @@
 
 package io.grpc.examples.retrying;
 
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,7 +38,7 @@ import java.util.logging.Logger;
 public class RetryingHelloWorldServer {
   private static final Logger logger = Logger.getLogger(RetryingHelloWorldServer.class.getName());
   private static final float UNAVAILABLE_PERCENTAGE = 0.5F;
-  private static final Random random = new Random();
+  private static final Random random = new SecureRandom();
 
   private Server server;
 

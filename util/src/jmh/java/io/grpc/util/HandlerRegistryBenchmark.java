@@ -23,6 +23,7 @@ import io.grpc.ServerCall.Listener;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerServiceDefinition;
 import io.grpc.testing.TestMethodDescriptors;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -101,7 +102,7 @@ public class HandlerRegistryBenchmark {
   }
 
   private String randomString() {
-    Random r = new Random();
+    Random r = new SecureRandom();
     char[] bytes = new char[nameLength];
     for (int ix = 0; ix < nameLength; ++ix) {
       int charIx = r.nextInt(VALID_CHARACTERS.length());

@@ -40,6 +40,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.UnknownHostException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -124,7 +125,7 @@ public class DnsNameResolver extends NameResolver {
   /** Access through {@link #getLocalHostname}. */
   private static String localHostname;
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   protected volatile AddressResolver addressResolver = JdkAddressResolver.INSTANCE;
   private final AtomicReference<ResourceResolver> resourceResolver = new AtomicReference<>();
