@@ -36,6 +36,7 @@ import io.grpc.stub.StreamObserver;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
+import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -309,7 +310,7 @@ public class RouteGuideActivity extends AppCompatActivity {
       StreamObserver<Point> requestObserver = asyncStub.recordRoute(responseObserver);
       try {
         // Send numPoints points randomly selected from the points list.
-        Random rand = new Random();
+        Random rand = new SecureRandom();
         for (int i = 0; i < numPoints; ++i) {
           int index = rand.nextInt(points.size());
           Point point = points.get(index);

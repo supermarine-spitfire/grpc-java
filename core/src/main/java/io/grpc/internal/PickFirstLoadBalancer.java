@@ -28,6 +28,7 @@ import io.grpc.ConnectivityStateInfo;
 import io.grpc.EquivalentAddressGroup;
 import io.grpc.LoadBalancer;
 import io.grpc.Status;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,7 +69,7 @@ final class PickFirstLoadBalancer extends LoadBalancer {
       if (config.shuffleAddressList != null && config.shuffleAddressList) {
         servers = new ArrayList<EquivalentAddressGroup>(servers);
         Collections.shuffle(servers,
-            config.randomSeed != null ? new Random(config.randomSeed) : new Random());
+            config.randomSeed != null ? new Random(config.randomSeed) : new SecureRandom());
       }
     }
 

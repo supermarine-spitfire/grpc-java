@@ -31,6 +31,7 @@ import io.grpc.stub.StreamObserver;
 import io.grpc.xds.orca.OrcaMetricReportingServerInterceptor;
 import io.grpc.xds.orca.OrcaServiceImpl;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -45,7 +46,7 @@ public class CustomBackendMetricsServer {
   private static final Logger logger = Logger.getLogger(CustomBackendMetricsServer.class.getName());
 
   private Server server;
-  private static Random random = new Random();
+  private static Random random = new SecureRandom();
   private MetricRecorder metricRecorder;
 
   private void start() throws IOException {
