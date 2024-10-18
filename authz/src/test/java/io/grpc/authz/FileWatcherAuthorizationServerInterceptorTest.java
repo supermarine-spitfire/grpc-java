@@ -35,7 +35,7 @@ import org.junit.runners.JUnit4;
 public class FileWatcherAuthorizationServerInterceptorTest {
   @Test
   public void invalidPolicyFailsAuthzInterceptorCreation() throws Exception {
-    File policyFile = File.createTempFile("temp", "json");
+    File policyFile = Files.createTempFile("temp", "json").toFile();
     policyFile.deleteOnExit();
     String policy = "{ \"name\": \"abc\",, }";
     Files.write(Paths.get(policyFile.getAbsolutePath()), policy.getBytes(UTF_8));
@@ -49,7 +49,7 @@ public class FileWatcherAuthorizationServerInterceptorTest {
 
   @Test
   public void validPolicyCreatesFileWatcherAuthzInterceptor() throws Exception {
-    File policyFile = File.createTempFile("temp", "json");
+    File policyFile = Files.createTempFile("temp", "json").toFile();
     policyFile.deleteOnExit();
     String policy = "{"
         + " \"name\" : \"authz\","
@@ -77,7 +77,7 @@ public class FileWatcherAuthorizationServerInterceptorTest {
 
   @Test
   public void invalidRefreshIntervalFailsScheduleRefreshes() throws Exception {
-    File policyFile = File.createTempFile("temp", "json");
+    File policyFile = Files.createTempFile("temp", "json").toFile();
     policyFile.deleteOnExit();
     String policy = "{"
         + " \"name\" : \"authz\","
