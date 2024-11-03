@@ -43,6 +43,7 @@ import io.grpc.xds.orca.OrcaOobUtil;
 import io.grpc.xds.orca.OrcaOobUtil.OrcaOobReportListener;
 import io.grpc.xds.orca.OrcaPerRequestUtil;
 import io.grpc.xds.orca.OrcaPerRequestUtil.OrcaPerRequestReportListener;
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -75,7 +76,7 @@ final class WeightedRoundRobinLoadBalancer extends RoundRobinLoadBalancer {
   private final Ticker ticker;
 
   public WeightedRoundRobinLoadBalancer(Helper helper, Ticker ticker) {
-    this(new WrrHelper(OrcaOobUtil.newOrcaReportingHelper(helper)), ticker, new Random());
+    this(new WrrHelper(OrcaOobUtil.newOrcaReportingHelper(helper)), ticker, new SecureRandom());
   }
 
   public WeightedRoundRobinLoadBalancer(WrrHelper helper, Ticker ticker, Random random) {

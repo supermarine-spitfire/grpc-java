@@ -23,6 +23,7 @@ import static io.grpc.ConnectivityState.CONNECTING;
 import static io.grpc.ConnectivityState.IDLE;
 import static io.grpc.ConnectivityState.READY;
 import static io.grpc.ConnectivityState.SHUTDOWN;
+import java.security.SecureRandom;
 import static org.junit.Assert.fail;
 import static org.mockito.AdditionalAnswers.delegatesTo;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -168,7 +169,7 @@ public class OrcaOobUtilTest {
 
   @Test
   public void orcaReportingConfig_construct() {
-    int interval = new Random().nextInt(Integer.MAX_VALUE);
+    int interval = new SecureRandom().nextInt(Integer.MAX_VALUE);
     OrcaReportingConfig config =
         OrcaReportingConfig.newBuilder()
             .setReportInterval(interval, TimeUnit.MICROSECONDS)

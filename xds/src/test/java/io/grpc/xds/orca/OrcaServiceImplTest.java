@@ -17,6 +17,7 @@
 package io.grpc.xds.orca;
 
 import static com.google.common.truth.Truth.assertThat;
+import java.security.SecureRandom;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
@@ -68,7 +69,7 @@ public class OrcaServiceImplTest {
   private final FakeClock fakeClock = new FakeClock();
   private MetricRecorder defaultTestService;
   private BindableService orcaServiceImpl;
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   @Mock
   ClientCall.Listener<OrcaLoadReport> listener;
 

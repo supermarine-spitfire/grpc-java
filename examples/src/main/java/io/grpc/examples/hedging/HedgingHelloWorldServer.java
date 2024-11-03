@@ -29,6 +29,7 @@ import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -105,7 +106,7 @@ public class HedgingHelloWorldServer {
     public <HelloRequestT, HelloReplyT> Listener<HelloRequestT> interceptCall(
         ServerCall<HelloRequestT, HelloReplyT> call,
         Metadata headers, ServerCallHandler<HelloRequestT, HelloReplyT> next) {
-      int random = new Random().nextInt(100);
+      int random = new SecureRandom().nextInt(100);
       long delay = 0;
       if (random < 1) {
         delay = 10_000;

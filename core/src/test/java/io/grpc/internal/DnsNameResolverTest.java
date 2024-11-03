@@ -17,6 +17,7 @@
 package io.grpc.internal;
 
 import static com.google.common.truth.Truth.assertThat;
+import java.security.SecureRandom;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -893,7 +894,7 @@ public class DnsNameResolverTest {
     bad.put("parcentage", 1.0);
     thrown.expectMessage("Bad key");
 
-    DnsNameResolver.maybeChooseServiceConfig(bad, new Random(), "host");
+    DnsNameResolver.maybeChooseServiceConfig(bad, new SecureRandom(), "host");
   }
 
   @Test
@@ -904,7 +905,7 @@ public class DnsNameResolverTest {
     choice.put("clientLanguage", langs);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -915,7 +916,7 @@ public class DnsNameResolverTest {
     choice.put("clientLanguage", langs);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -926,7 +927,7 @@ public class DnsNameResolverTest {
     choice.put("clientLanguage", langs);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -936,7 +937,7 @@ public class DnsNameResolverTest {
     choice.put("clientLanguage", langs);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -948,7 +949,7 @@ public class DnsNameResolverTest {
     choice.put("clientLanguage", langs);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -957,7 +958,7 @@ public class DnsNameResolverTest {
     choice.put("percentage", 0D);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -966,7 +967,7 @@ public class DnsNameResolverTest {
     choice.put("percentage", 100D);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -1073,7 +1074,7 @@ public class DnsNameResolverTest {
     choice.put("clientHostname", hosts);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "localhost"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "localhost"));
   }
 
   @Test
@@ -1084,7 +1085,7 @@ public class DnsNameResolverTest {
     choice.put("clientHostname", hosts);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "localhost"));
+    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "localhost"));
   }
 
   @Test
@@ -1095,7 +1096,7 @@ public class DnsNameResolverTest {
     choice.put("clientHostname", hosts);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "localhost"));
+    assertNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "localhost"));
   }
 
   @Test
@@ -1105,7 +1106,7 @@ public class DnsNameResolverTest {
     choice.put("clientHostname", hosts);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "host"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "host"));
   }
 
   @Test
@@ -1117,7 +1118,7 @@ public class DnsNameResolverTest {
     choice.put("clientHostname", hosts);
     choice.put("serviceConfig", serviceConfig);
 
-    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new Random(), "localhost"));
+    assertNotNull(DnsNameResolver.maybeChooseServiceConfig(choice, new SecureRandom(), "localhost"));
   }
 
   @Test
@@ -1248,7 +1249,7 @@ public class DnsNameResolverTest {
   @Test
   public void parseServiceConfig_capturesParseError() {
     ConfigOrError result = DnsNameResolver.parseServiceConfig(
-        Arrays.asList("grpc_config=bogus"), new Random(), "localhost");
+        Arrays.asList("grpc_config=bogus"), new SecureRandom(), "localhost");
 
     assertThat(result).isNotNull();
     assertThat(result.getError().getCode()).isEqualTo(Status.Code.UNKNOWN);
@@ -1258,7 +1259,7 @@ public class DnsNameResolverTest {
   @Test
   public void parseServiceConfig_capturesChoiceError() {
     ConfigOrError result = DnsNameResolver.parseServiceConfig(
-        Arrays.asList("grpc_config=[{\"hi\":{}}]"), new Random(), "localhost");
+        Arrays.asList("grpc_config=[{\"hi\":{}}]"), new SecureRandom(), "localhost");
 
     assertThat(result).isNotNull();
     assertThat(result.getError().getCode()).isEqualTo(Status.Code.UNKNOWN);
@@ -1268,7 +1269,7 @@ public class DnsNameResolverTest {
   @Test
   public void parseServiceConfig_noChoiceIsNull() {
     ConfigOrError result = DnsNameResolver.parseServiceConfig(
-        Arrays.asList("grpc_config=[]"), new Random(), "localhost");
+        Arrays.asList("grpc_config=[]"), new SecureRandom(), "localhost");
 
     assertThat(result).isNull();
   }
@@ -1276,7 +1277,7 @@ public class DnsNameResolverTest {
   @Test
   public void parseServiceConfig_matches() {
     ConfigOrError result = DnsNameResolver.parseServiceConfig(
-        Arrays.asList("grpc_config=[{\"serviceConfig\":{}}]"), new Random(), "localhost");
+        Arrays.asList("grpc_config=[{\"serviceConfig\":{}}]"), new SecureRandom(), "localhost");
 
     assertThat(result).isNotNull();
     assertThat(result.getError()).isNull();

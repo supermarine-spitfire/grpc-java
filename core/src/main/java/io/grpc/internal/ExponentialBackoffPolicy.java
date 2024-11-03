@@ -19,6 +19,7 @@ package io.grpc.internal;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import com.google.common.annotations.VisibleForTesting;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +37,7 @@ public final class ExponentialBackoffPolicy implements BackoffPolicy {
     }
   }
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private long initialBackoffNanos = TimeUnit.SECONDS.toNanos(1);
   private long maxBackoffNanos = TimeUnit.MINUTES.toNanos(2);
   private double multiplier = 1.6;
