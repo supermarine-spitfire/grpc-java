@@ -18,6 +18,7 @@ package io.grpc.okhttp;
 
 import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.truth.Truth.assertThat;
+import io.github.pixee.security.BoundedLineReader;
 import static io.grpc.internal.ClientStreamListener.RpcProgress.MISCARRIED;
 import static io.grpc.internal.ClientStreamListener.RpcProgress.PROCESSED;
 import static io.grpc.internal.ClientStreamListener.RpcProgress.REFUSED;
@@ -1784,17 +1785,17 @@ public class OkHttpClientTransportTest {
     serverSocket.close();
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream(), UTF_8));
-    assertEquals("CONNECT theservice:80 HTTP/1.1", reader.readLine());
-    assertEquals("Host: theservice:80", reader.readLine());
-    while (!"".equals(reader.readLine())) {}
+    assertEquals("CONNECT theservice:80 HTTP/1.1", BoundedLineReader.readLine(reader, 5_000_000));
+    assertEquals("Host: theservice:80", BoundedLineReader.readLine(reader, 5_000_000));
+    while (!"".equals(BoundedLineReader.readLine(reader, 5_000_000))) {}
 
     sock.getOutputStream().write("HTTP/1.1 200 OK\r\nServer: test\r\n\r\n".getBytes(UTF_8));
     sock.getOutputStream().flush();
 
-    assertEquals("PRI * HTTP/2.0", reader.readLine());
-    assertEquals("", reader.readLine());
-    assertEquals("SM", reader.readLine());
-    assertEquals("", reader.readLine());
+    assertEquals("PRI * HTTP/2.0", BoundedLineReader.readLine(reader, 5_000_000));
+    assertEquals("", BoundedLineReader.readLine(reader, 5_000_000));
+    assertEquals("SM", BoundedLineReader.readLine(reader, 5_000_000));
+    assertEquals("", BoundedLineReader.readLine(reader, 5_000_000));
 
     // Empty SETTINGS
     sock.getOutputStream().write(new byte[] {0, 0, 0, 0, 0x4, 0});
@@ -1833,9 +1834,9 @@ public class OkHttpClientTransportTest {
     serverSocket.close();
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream(), UTF_8));
-    assertEquals("CONNECT theservice:80 HTTP/1.1", reader.readLine());
-    assertEquals("Host: theservice:80", reader.readLine());
-    while (!"".equals(reader.readLine())) {}
+    assertEquals("CONNECT theservice:80 HTTP/1.1", BoundedLineReader.readLine(reader, 5_000_000));
+    assertEquals("Host: theservice:80", BoundedLineReader.readLine(reader, 5_000_000));
+    while (!"".equals(BoundedLineReader.readLine(reader, 5_000_000))) {}
 
     final String errorText = "text describing error";
     sock.getOutputStream().write("HTTP/1.1 500 OH NO\r\n\r\n".getBytes(UTF_8));
@@ -1913,9 +1914,9 @@ public class OkHttpClientTransportTest {
     serverSocket.close();
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream(), UTF_8));
-    assertEquals("CONNECT theservice:80 HTTP/1.1", reader.readLine());
-    assertEquals("Host: theservice:80", reader.readLine());
-    while (!"".equals(reader.readLine())) {}
+    assertEquals("CONNECT theservice:80 HTTP/1.1", BoundedLineReader.readLine(reader, 5_000_000));
+    assertEquals("Host: theservice:80", BoundedLineReader.readLine(reader, 5_000_000));
+    while (!"".equals(BoundedLineReader.readLine(reader, 5_000_000))) {}
 
     verify(transportListener, timeout(200)).transportShutdown(any(Status.class));
     verify(transportListener, timeout(TIME_OUT_MS)).transportTerminated();
@@ -2289,7 +2290,7 @@ public class OkHttpClientTransportTest {
       BufferedReader br = new BufferedReader(new InputStreamReader(message, UTF_8));
       try {
         // Only one line message is used in this test.
-        return br.readLine();
+        return BoundedLineReader.readLine(br, 5_000_000);
       } catch (IOException e) {
         return null;
       } finally {
