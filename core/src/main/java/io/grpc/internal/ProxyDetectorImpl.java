@@ -20,6 +20,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Supplier;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import io.grpc.HttpConnectProxiedSocketAddress;
 import io.grpc.ProxiedSocketAddress;
 import io.grpc.ProxyDetector;
@@ -128,7 +130,7 @@ class ProxyDetectorImpl implements ProxyDetector {
         String host, InetAddress addr, int port, String protocol, String prompt, String scheme) {
       URL url = null;
       try {
-        url = new URL(protocol, host, port, "");
+        url = Urls.create(protocol, host, port, "", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
       } catch (MalformedURLException e) {
         // let url be null
         log.log(
