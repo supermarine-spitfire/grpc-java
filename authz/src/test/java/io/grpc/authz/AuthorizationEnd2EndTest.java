@@ -90,7 +90,7 @@ public class AuthorizationEnd2EndTest {
   }
 
   private void createTempAuthorizationPolicy(String authorizationPolicy) throws Exception {
-    policyFile = File.createTempFile("temp", "json");
+    policyFile = Files.createTempFile("temp", "json").toFile();
     Files.write(Paths.get(policyFile.getAbsolutePath()), authorizationPolicy.getBytes(UTF_8));
   }
 
