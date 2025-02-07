@@ -41,6 +41,7 @@ import io.grpc.testing.integration.Messages.StreamingOutputCallRequest;
 import io.grpc.testing.integration.Messages.StreamingOutputCallResponse;
 import io.grpc.testing.integration.Messages.TestOrcaReport;
 import io.grpc.testing.integration.TestServiceGrpc.AsyncService;
+import java.security.SecureRandom;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ import javax.annotation.concurrent.GuardedBy;
  * sent in response streams.
  */
 public class TestServiceImpl implements io.grpc.BindableService, AsyncService {
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   private final ScheduledExecutorService executor;
   private final ByteString compressableBuffer;

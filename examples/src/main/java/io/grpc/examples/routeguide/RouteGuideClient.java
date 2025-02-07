@@ -28,6 +28,7 @@ import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideBlockingStub;
 import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideStub;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,7 @@ public class RouteGuideClient {
   private final RouteGuideBlockingStub blockingStub;
   private final RouteGuideStub asyncStub;
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private TestHelper testHelper;
 
   /** Construct client for accessing RouteGuide server using the existing channel. */

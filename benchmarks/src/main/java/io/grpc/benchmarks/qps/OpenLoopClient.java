@@ -38,6 +38,7 @@ import io.grpc.benchmarks.proto.BenchmarkServiceGrpc;
 import io.grpc.benchmarks.proto.Messages.SimpleRequest;
 import io.grpc.benchmarks.proto.Messages.SimpleResponse;
 import io.grpc.stub.StreamObserver;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import org.HdrHistogram.AtomicHistogram;
@@ -137,7 +138,7 @@ public class OpenLoopClient {
       this.request = checkNotNull(request, "request");
       this.targetQps = targetQps;
       numRpcs = (long) targetQps * duration;
-      rnd = new Random();
+      rnd = new SecureRandom();
     }
 
     /**

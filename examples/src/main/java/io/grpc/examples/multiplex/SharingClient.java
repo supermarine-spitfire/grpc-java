@@ -32,6 +32,7 @@ import io.grpc.examples.echo.EchoRequest;
 import io.grpc.examples.echo.EchoResponse;
 import io.grpc.examples.helloworld.HelloWorldClient;
 import io.grpc.stub.StreamObserver;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -53,7 +54,7 @@ public class SharingClient {
   private final GreeterGrpc.GreeterBlockingStub greeterStub2;
   private final EchoGrpc.EchoStub echoStub;
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
 
   /** Construct client for accessing HelloWorld server using the existing channel. */
   public SharingClient(Channel channel) {

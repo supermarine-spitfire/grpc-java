@@ -30,6 +30,7 @@ import io.grpc.EquivalentAddressGroup;
 import io.grpc.Internal;
 import io.grpc.LoadBalancer;
 import io.grpc.NameResolver;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -44,7 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Internal
 public class RoundRobinLoadBalancer extends MultiChildLoadBalancer {
-  private final AtomicInteger sequence = new AtomicInteger(new Random().nextInt());
+  private final AtomicInteger sequence = new AtomicInteger(new SecureRandom().nextInt());
   protected SubchannelPicker currentPicker = new EmptyPicker();
 
   public RoundRobinLoadBalancer(Helper helper) {

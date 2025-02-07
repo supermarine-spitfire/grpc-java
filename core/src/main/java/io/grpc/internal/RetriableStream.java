@@ -34,6 +34,7 @@ import io.grpc.SynchronizationContext;
 import io.grpc.internal.ClientStreamListener.RpcProgress;
 import java.io.InputStream;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -793,7 +794,7 @@ abstract class RetriableStream<ReqT> implements ClientStream {
     }
   }
 
-  private static Random random = new Random();
+  private static Random random = new SecureRandom();
 
   @VisibleForTesting
   static void setRandom(Random random) {
