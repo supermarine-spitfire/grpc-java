@@ -17,6 +17,7 @@
 package io.grpc.internal;
 
 import static com.google.common.truth.Truth.assertThat;
+import io.github.pixee.security.BoundedLineReader;
 import static org.junit.Assert.assertTrue;
 
 import com.google.common.collect.ImmutableSet;
@@ -42,7 +43,7 @@ public class HedgingPolicyTest {
           "/io/grpc/internal/test_hedging_service_config.json"), "UTF-8"));
       StringBuilder sb = new StringBuilder();
       String line;
-      while ((line = reader.readLine()) != null) {
+      while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
         sb.append(line).append('\n');
       }
       Object serviceConfigObj = JsonParser.parse(sb.toString());
@@ -104,7 +105,7 @@ public class HedgingPolicyTest {
           "/io/grpc/internal/test_hedging_service_config.json"), "UTF-8"));
       StringBuilder sb = new StringBuilder();
       String line;
-      while ((line = reader.readLine()) != null) {
+      while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
         sb.append(line).append('\n');
       }
       Object serviceConfigObj = JsonParser.parse(sb.toString());
