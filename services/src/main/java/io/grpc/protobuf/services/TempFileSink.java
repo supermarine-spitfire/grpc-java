@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +38,7 @@ class TempFileSink implements BinaryLogSink {
   private boolean closed;
 
   TempFileSink() throws IOException {
-    File outFile = File.createTempFile("BINARY_INFO.", "");
+    File outFile = Files.createTempFile("BINARY_INFO.", "").toFile();
     outPath = outFile.getPath();
     logger.log(Level.INFO, "Writing binary logs to to {0}", outFile.getAbsolutePath());
     out = new BufferedOutputStream(new FileOutputStream(outFile));
