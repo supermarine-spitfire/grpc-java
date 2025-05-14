@@ -18,6 +18,7 @@ package io.grpc.netty;
 
 import static io.grpc.InternalMetadata.BASE64_ENCODING_OMIT_PADDING;
 import static io.netty.util.AsciiString.of;
+import java.security.SecureRandom;
 import static junit.framework.TestCase.assertNotSame;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -68,7 +69,7 @@ public class GrpcHttp2InboundHeadersTest {
     Http2Headers headers = new GrpcHttp2RequestHeaders(1);
 
     byte[] data = new byte[100];
-    new Random().nextBytes(data);
+    new SecureRandom().nextBytes(data);
     headers.add(of("foo-bin"), of(BASE64_ENCODING_OMIT_PADDING.encode(data)));
 
     assertEquals(1, headers.size());

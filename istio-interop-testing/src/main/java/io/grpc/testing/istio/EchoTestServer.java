@@ -62,6 +62,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -148,7 +149,7 @@ public final class EchoTestServer {
       logger.log(Level.INFO, "Failed to determine hostname. Will generate one", ex);
     }
     // let's make an identifier for ourselves.
-    return "generated-" + new Random().nextInt();
+    return "generated-" + new SecureRandom().nextInt();
   }
 
   /**

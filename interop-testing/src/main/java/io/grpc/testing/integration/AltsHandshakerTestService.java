@@ -30,6 +30,7 @@ import io.grpc.alts.internal.Identity;
 import io.grpc.alts.internal.RpcProtocolVersions;
 import io.grpc.alts.internal.RpcProtocolVersions.Version;
 import io.grpc.stub.StreamObserver;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ import java.util.logging.Logger;
 public class AltsHandshakerTestService extends HandshakerServiceImplBase {
   private static final Logger log = Logger.getLogger(AltsHandshakerTestService.class.getName());
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private static final int FIXED_LENGTH_OUTPUT = 16;
   private final ByteString fakeOutput = data(FIXED_LENGTH_OUTPUT);
   private final ByteString secret = data(128);

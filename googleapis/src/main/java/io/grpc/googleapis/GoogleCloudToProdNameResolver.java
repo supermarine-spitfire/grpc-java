@@ -41,6 +41,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executor;
@@ -99,7 +100,7 @@ final class GoogleCloudToProdNameResolver extends NameResolver {
 
   GoogleCloudToProdNameResolver(URI targetUri, Args args, Resource<Executor> executorResource,
       BootstrapSetter bootstrapSetter) {
-    this(targetUri, args, executorResource, new Random(), bootstrapSetter,
+    this(targetUri, args, executorResource, new SecureRandom(), bootstrapSetter,
         NameResolverRegistry.getDefaultRegistry().asFactory());
   }
 

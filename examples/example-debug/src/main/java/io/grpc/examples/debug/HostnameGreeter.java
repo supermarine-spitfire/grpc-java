@@ -22,6 +22,7 @@ import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -68,6 +69,6 @@ public final class HostnameGreeter extends GreeterGrpc.GreeterImplBase {
       logger.log(Level.INFO, "Failed to determine hostname. Will generate one", ex);
     }
     // Strange. Well, let's make an identifier for ourselves.
-    return "generated-" + new Random().nextInt();
+    return "generated-" + new SecureRandom().nextInt();
   }
 }
