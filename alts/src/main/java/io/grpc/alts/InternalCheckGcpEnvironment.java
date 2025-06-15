@@ -16,6 +16,7 @@
 
 package io.grpc.alts;
 
+import io.github.pixee.security.BoundedLineReader;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -55,14 +56,14 @@ public final class InternalCheckGcpEnvironment {
 
   @VisibleForTesting
   static boolean checkProductNameOnLinux(BufferedReader reader) throws IOException {
-    String name = reader.readLine().trim();
+    String name = BoundedLineReader.readLine(reader, 5_000_000).trim();
     return name.equals("Google") || name.equals("Google Compute Engine");
   }
 
   @VisibleForTesting
   static boolean checkBiosDataOnWindows(BufferedReader reader) throws IOException {
     String line;
-    while ((line = reader.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
       if (line.startsWith("Manufacturer")) {
         String name = line.substring(line.indexOf(':') + 1).trim();
         return name.equals("Google");

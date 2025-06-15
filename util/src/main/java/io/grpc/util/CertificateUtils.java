@@ -17,6 +17,7 @@
 package io.grpc.util;
 
 import com.google.common.io.BaseEncoding;
+import io.github.pixee.security.BoundedLineReader;
 import io.grpc.ExperimentalApi;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,13 +68,13 @@ public final class CertificateUtils {
       InvalidKeySpecException {
     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
     String line;
-    while ((line = reader.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
       if ("-----BEGIN PRIVATE KEY-----".equals(line)) {
         break;
       }
     }
     StringBuilder keyContent = new StringBuilder();
-    while ((line = reader.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
       if ("-----END PRIVATE KEY-----".equals(line)) {
         break;
       }
